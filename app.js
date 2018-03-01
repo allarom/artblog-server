@@ -14,7 +14,7 @@ const articles = require('./routes/article');
 
 const app = express();
 
-// database connection
+// --- database connection
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/article-db', {
   keepAlive: true,
@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// routes
+// --- routes
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/articles', articles);
