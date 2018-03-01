@@ -27,13 +27,13 @@ router.post('/login', (req, res, next) => {
   User.findOne({ username })
     .then((user) => {
       if (!user) {
-        return res.status(404).json({error: 'not-found'});
+        return res.status(404).json({error: 'User not found'});
       }
       if (bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
         return res.json(user);
       } else {
-        return res.status(404).json({error: 'not-found'});
+        return res.status(404).json({error: 'Password is false'});
       }
     })
     .catch(next);
@@ -54,7 +54,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({username}, 'username')
     .then((userExists) => {
       if (userExists) {
-        return res.status(422).json({error: 'username-not-unique'});
+        return res.status(422).json({error: 'Username is not unique'});
       }
 
       const salt = bcrypt.genSaltSync(10);

@@ -10,6 +10,7 @@ const cors = require('cors');
 
 const index = require('./routes/index');
 const auth = require('./routes/auth');
+const articles = require('./routes/article');
 
 const app = express();
 
@@ -20,7 +21,10 @@ mongoose.connect('mongodb://localhost/article-db', {
   reconnectTries: Number.MAX_VALUE
 });
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:4200']
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,6 +52,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/articles', articles);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
