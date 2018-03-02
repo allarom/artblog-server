@@ -20,4 +20,21 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
+// --- POST single article
+router.post('/', (req, res, next) => {
+  const title = req.body.title;
+  const image = req.body.image;
+  const content = req.body.content;
+  const category = req.body.category;
+
+  const newArticle = Article({
+    title,
+    image,
+    content,
+    category
+  });
+
+  newArticle.save();
+});
+
 module.exports = router;
