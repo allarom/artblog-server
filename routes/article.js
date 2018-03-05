@@ -37,4 +37,16 @@ router.post('/', (req, res, next) => {
   newArticle.save();
 });
 
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id;
+  // console.log(req.body.id);
+
+  Article.findByIdAndRemove(id, (err, product) => {
+    if (err) {
+      console.log(req.body.id);
+      return next(err);
+    }
+  });
+});
+
 module.exports = router;
