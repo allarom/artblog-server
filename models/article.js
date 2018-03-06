@@ -7,7 +7,8 @@ const ArticleSchema = Schema({
   image: String,
   content: String,
   category: String,
-  comments: Array
+  comments: Array,
+  autor: String
 }, {
   timestamps: {
     createdAt: 'created_at',

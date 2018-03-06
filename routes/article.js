@@ -26,12 +26,14 @@ router.post('/', (req, res, next) => {
   const image = req.body.image;
   const content = req.body.content;
   const category = req.body.category;
+  const autor = req.body.autor;
 
   const newArticle = Article({
     title,
     image,
     content,
-    category
+    category,
+    autor
   });
 
   newArticle.save();
