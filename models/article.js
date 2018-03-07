@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ArticleSchema = Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   image: String,
   content: String,
   category: String,

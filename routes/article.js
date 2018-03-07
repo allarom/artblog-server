@@ -12,12 +12,14 @@ router.get('/', (req, res, next) => {
 
 // --- GET single article by :id
 router.get('/:id', (req, res, next) => {
-  Article.findById(req.params.id, (err, article) => {
-    if (err) { return res.json(err).status(500); }
-    if (!article) { return res.json(err).status(404); }
-
-    return res.json(article);
-  });
+  Article.findById(req.params.id)
+    .then((article) => {
+      if (!article) {
+        return res.status(404).json({error: 'not found'});
+      }
+      return res.json(article);
+    })
+    .catch(next);
 });
 
 // --- POST single article
@@ -36,19 +38,18 @@ router.post('/', (req, res, next) => {
     autor
   });
 
-  newArticle.save();
+  newArticle.save()
+    .then(() => res.json(newArticle))
+    .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
   // console.log(req.body.id);
 
-  Article.findByIdAndRemove(id, (err, product) => {
-    if (err) {
-      console.log(req.body.id);
-      return next(err);
-    }
-  });
+  Article.findByIdAndRemove(id)
+    .then(() => res.json({}))
+    .catch(next);
 });
 
 module.exports = router;
